@@ -5,11 +5,29 @@
     value: "nathankoerschner@gmail.com"
   tags:
   - git-personal
+
 - name: Git personal setup name
   git_config:
     name: user.name
     scope: global
-    value: "NathanKoesrschner"
+    value: "NathanKoerschner"
+  tags:
+  - git-personal
+
+- name: Install gh
+  homebrew:
+    name: gh
+    state: present
+  become: false
+
+- name: Authenticate with GitHub CLI
+  expect:
+    command: gh auth login
+    responses:
+      'What account do you want to log into?': 'GitHub.com\n'
+      'What is your preferred protocol for Git operations?': 'HTTPS\n'
+      'What authentication method would you like to use?': 'Password\n'
+      'Paste your authentication token:': '{{ lookup("password", "prompt") }}\n'
   tags:
   - git-personal
 
