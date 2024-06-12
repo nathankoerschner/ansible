@@ -1,0 +1,50 @@
+- name: Remove existing Neovim directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.config/nvim"
+    state: absent
+  tags:
+    - install
+    - neovim
+
+- name: Clone Neovim repository
+  ansible.builtin.git:
+    repo: 'https://github.com/neovim/neovim.git'
+    dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
+  tags:
+    - install
+    - neovim
+
+- name: Ensure dependencies are installed (macOS)
+  ansible.builtin.brew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - cmake
+    - gettext
+    - ninja
+    - libtool
+    - automake
+    - pkg-config
+    - python3
+    - pipx
+  tags:
+    - install
+    - neovim
+
+- name: Build Neovim
+  ansible.builtin.shell: |
+    cd {{ lookup('env', 'HOME') }}/.config/nvim
+    make CMAKE_BUILD_TYPE=Release
+  tags:
+    - install
+    - neovim
+
+- name: Install Neovim
+  become: true
+  ansible.builtin.shell: |
+    cd {{ lookup('env', 'HOME') }}/.config/nvim
+    make install
+  tags:
+    - install
+    - neovim
+
