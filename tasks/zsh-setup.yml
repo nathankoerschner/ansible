@@ -15,6 +15,7 @@
   user:
     name: "{{ ansible_user_id }}"
     shell: "{{ lookup('pipe', 'which zsh') }}"
+  become: true
 
 - name: Install Oh My Zsh
   shell: >
