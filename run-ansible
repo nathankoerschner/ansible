@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+## Install Homebrew if not installed
+if ! command -v brew &> /dev/null; then
+    echo "Homebrew not found, installing..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+## Update Homebrew
+brew update
+
+## Install curl, git, and ansible
+brew install curl git ansible
+
+## Optionally pull ansible
+# ansible-pull -U https://github.com/nathankoerschner/ansible.git
+
