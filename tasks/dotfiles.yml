@@ -11,4 +11,5 @@
       "{{ lookup('env', 'HOME') }}/dotfiles"
   args:
     chdir: "{{ lookup('env', 'HOME') }}"
+  become: true
 
