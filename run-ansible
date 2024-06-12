@@ -13,5 +13,5 @@ brew update
 brew install curl git ansible
 
 ## Optionally pull ansible
-# ansible-pull -U https://github.com/nathankoerschner/ansible.git
+ansible-pull -U https://github.com/nathankoerschner/ansible.git
 
