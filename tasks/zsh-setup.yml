@@ -9,6 +9,7 @@
     path: /etc/shells
     line: "{{ lookup('pipe', 'which zsh') }}"
     state: present
+  become: true
 
 - name: Change default shell to zsh for this user
   user:
@@ -21,3 +22,4 @@
   args:
     creates: ~/.oh-my-zsh
   become: false
+
