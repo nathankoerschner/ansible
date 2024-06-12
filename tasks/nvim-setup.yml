@@ -15,7 +15,7 @@
     - neovim
 
 - name: Ensure dependencies are installed (macOS)
-  ansible.builtin.brew:
+  community.general.homebrew:
     name: "{{ item }}"
     state: present
   loop:
