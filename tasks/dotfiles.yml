@@ -4,12 +4,11 @@
   args:
     creates: /usr/local/bin/brew
 
-- name: Cloning .dotfiles
-  ansible.builtin.git:
-    repo: 'git@github.com:nathankoerschner/dotfiles.git'
-    dest: "{{ lookup('env', 'HOME') }}"
-    recursive: yes
-    update: yes
-    accept_hostkey: yes
-    version: master
+- name: Cloning .dotfiles using gh CLI
+  ansible.builtin.command:
+    cmd: >
+      gh repo clone git@github.com:nathankoerschner/dotfiles.git 
+      "{{ lookup('env', 'HOME') }}/dotfiles"
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}"
 
