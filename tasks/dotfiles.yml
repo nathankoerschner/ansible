@@ -10,7 +10,7 @@
     recursive: yes
     update: yes
     accept_hostkey: yes
-    version: master
+    version: main
 
 - name: MacOS settings
   shell: cd $HOME/.dotfiles && ./macos
