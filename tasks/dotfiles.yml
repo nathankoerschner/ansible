@@ -1,15 +1,17 @@
-- name: Ensure Homebrew is installed
-  ansible.builtin.shell: |
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  args:
-    creates: /usr/local/bin/brew
+- name: Installing stow
+  homebrew:
+    name: stow
+    state: present
 
-- name: Cloning .dotfiles using gh CLI
-  ansible.builtin.command:
-    cmd: >
-      gh repo clone git@github.com:nathankoerschner/dotfiles.git 
-      "{{ lookup('env', 'HOME') }}/dotfiles"
-  args:
-    chdir: "{{ lookup('env', 'HOME') }}"
-  become: true
+- name: Cloning .dotfiles
+  ansible.builtin.git:
+    repo: 'git@github.com:nathankoerschner/dotfiles.git'
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    recursive: yes
+    update: yes
+    accept_hostkey: yes
+    version: master
+
+- name: MacOS settings
+  shell: cd $HOME/.dotfiles && ./macos
 
