@@ -7,8 +7,7 @@ if ! command -v brew &> /dev/null; then
 fi
 
 brew update
-brew install curl git gh ansible
-gh auth login
+brew install curl git ansible
 
-ansible-pull -U https://github.com/nathankoerschner/ansible.git
+ansible-pull -U https://github.com/nathankoerschner/ansible.git --ask-become-pass --ask-vault-pass
 
