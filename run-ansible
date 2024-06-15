@@ -6,8 +6,8 @@ if ! command -v brew &> /dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-brew update
-brew install curl git ansible
+/opt/homebrew/bin/brew update
+/opt/homebrew/bin/brew install curl git ansible
 
 ansible-pull -U https://github.com/nathankoerschner/ansible.git --ask-become-pass --ask-vault-pass
 

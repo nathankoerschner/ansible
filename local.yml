@@ -3,9 +3,12 @@
     source_key: "./.ssh/id_ed25519"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
   tasks:
+  - import_tasks: tasks/zsh-setup.yml
   - import_tasks: tasks/ssh-setup.yml
   - import_tasks: tasks/git-setup.yml
-  - import_tasks: tasks/zsh-setup.yml
   - import_tasks: tasks/nvim-setup.yml
+  - import_tasks: tasks/tools.yml
   - import_tasks: tasks/dotfiles.yml
+  - import_tasks: tasks/install-things.yml
+  - import_tasks: tasks/install-1password.yml
 

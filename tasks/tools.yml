@@ -1,0 +1,12 @@
+- name: Install packages
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - tmux
+    - fzf
+    - tldr
+    - ripgrep
+  tags:
+    - install
+    - productivity

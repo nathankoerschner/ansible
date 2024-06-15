@@ -2,25 +2,29 @@
   homebrew:
     name: zsh
     state: present
-  become: false
+  tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
 
-- name: Add zsh to the list of valid shells
-  lineinfile:
-    path: /etc/shells
-    line: "{{ lookup('pipe', 'which zsh') }}"
-    state: present
+- name: Change shell to zsh
+  shell: chsh -s $(which zsh)
+  tags: *tags_for_zsh_tasks
   become: true
 
-- name: Change default shell to zsh for this user
-  user:
-    name: "{{ ansible_user_id }}"
-    shell: "{{ lookup('pipe', 'which zsh') }}"
+- name: Check that the .oh-my-zsh directory exists
+  stat:
+    path: ~/.oh-my-zsh
+  register: oh_my_stats
+  tags: *tags_for_zsh_tasks
+
+- name: Oh-My-Zsh
+  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
+  tags: *tags_for_zsh_tasks
+  when: oh_my_stats.stat.exists == False
   become: true
 
-- name: Install Oh My Zsh
-  shell: >
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  args:
-    creates: ~/.oh-my-zsh
-  become: false
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+  tags: *tags_for_zsh_tasks
+  become: true
 

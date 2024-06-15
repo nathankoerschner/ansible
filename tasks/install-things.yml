@@ -1,0 +1,26 @@
+- name: Download Things 3 ZIP
+  get_url:
+    url: https://culturedcode.com/things/download/
+    dest: /tmp/Things3.zip
+
+- name: Unzip Things 3
+  unarchive:
+    src: /tmp/Things3.zip
+    dest: /tmp/
+    remote_src: yes
+
+- name: Remove existing Things 3 app if present
+  file:
+    path: /Applications/Things3.app
+    state: absent
+  become: yes
+
+- name: Move Things 3 to Applications
+  command: mv /tmp/Things3.app /Applications/
+  become: true
+
+- name: Clean up ZIP file
+  file:
+    path: /tmp/Things3.zip
+    state: absent
+
