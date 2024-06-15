@@ -7,6 +7,7 @@
     - fzf
     - tldr
     - ripgrep
+    - hammerspoon
   tags:
     - install
     - productivity
