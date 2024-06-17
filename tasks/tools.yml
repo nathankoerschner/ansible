@@ -11,3 +11,5 @@
   tags:
     - install
     - productivity
+- name: Open Hammerspoon
+  command: open /Applications/Hammerspoon.app

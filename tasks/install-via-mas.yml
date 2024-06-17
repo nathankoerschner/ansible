@@ -1,0 +1,12 @@
+- name: Ensure mas is installed
+  homebrew:
+    name: mas
+    state: present
+
+- name: Install apps from the Mac App Store
+  shell: mas install {{ item }}
+  with_items:
+    - 904280696  # Things 3
+    - 1333542190 # 1Password
+    - 497799835  # Xcode
+    - 1569813296 # 1Password for Safari
