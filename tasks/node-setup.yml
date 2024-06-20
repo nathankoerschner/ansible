@@ -1,0 +1,55 @@
+- name: Install nodejs and npm via Homebrew
+  homebrew:
+    name: node
+    state: present
+  tags:
+    - install
+    - node
+
+- name: npmjs prefix
+  shell: mkdir -p ~/.local/.npm-global
+  tags:
+    - install
+    - node
+
+- name: add npmjs to path
+  shell: echo 'export PATH=~/.local/.npm-global/bin:$PATH' >> ~/.zshrc
+  tags:
+    - install
+    - node
+
+- name: npmjs global settings
+  shell: npm config set prefix '~/.local/.npm-global'
+  tags:
+    - install
+    - node
+
+- name: source .zshrc to update PATH
+  shell: source ~/.zshrc
+  tags:
+    - install
+    - node
+    - npm-path
+
+- name: Install N globally
+  npm:
+    name: n
+    global: yes
+  tags:
+    - install
+    - node
+
+- name: source .zshrc to update PATH
+  shell: source ~/.zshrc
+  tags:
+    - install
+    - node
+    - npm-path
+
+- name: Install correct version of Node
+  shell: n 18.17.1
+  tags:
+    - install
+    - node
+  become: true
+

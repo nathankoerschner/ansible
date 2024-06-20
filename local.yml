@@ -8,6 +8,8 @@
   - import_tasks: tasks/ssh-setup.yml
   - import_tasks: tasks/git-setup.yml
   - import_tasks: tasks/nvim-setup.yml
+  - import_tasks: tasks/node-setup.yml
+  - import_tasks: tasks/npm-packages.yml
   - import_tasks: tasks/dotfiles.yml
   - import_tasks: tasks/install-via-mas.yml
 
